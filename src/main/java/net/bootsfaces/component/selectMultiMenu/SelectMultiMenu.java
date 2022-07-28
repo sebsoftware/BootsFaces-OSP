@@ -47,7 +47,8 @@ import net.bootsfaces.utils.BsfUtils;
 /** This class holds the attributes of &lt;b:selectMultiMenu /&gt;. */
 @ResourceDependencies({
 	  @ResourceDependency(library = "bsf", name = "js/bootstrap-multiselect.js", target = "head"),
-		@ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body"), })
+		@ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body"),
+		@ResourceDependency(library = "bsf", name = "js/util.js", target = "head"), })
 
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(SelectMultiMenu.COMPONENT_TYPE)
@@ -82,7 +83,7 @@ public class SelectMultiMenu extends SelectMultiMenuCore implements net.bootsfac
  	 	}
 	}
 
-public String getFamily() {
+	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
 

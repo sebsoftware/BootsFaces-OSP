@@ -35,7 +35,8 @@ import net.bootsfaces.listeners.AddResourcesListener;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:modal /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/modal.js", target = "body") })
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/modal.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head") })
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(Modal.COMPONENT_TYPE)
 public class Modal extends ModalCore {

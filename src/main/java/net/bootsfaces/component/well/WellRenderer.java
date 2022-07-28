@@ -75,9 +75,9 @@ public class WellRenderer extends CoreRenderer {
 		Tooltip.generateTooltip(context, well, rw);
 
 		if (sz != null) {
-			rw.writeAttribute("class", "well well-" + sz + styleClass, "class");
+			rw.writeAttribute("class", "card card-body bg-light well-" + sz + styleClass, "class");
 		} else {
-			rw.writeAttribute("class", "well" + styleClass, "class");
+			rw.writeAttribute("class", "card card-body bg-light" + styleClass, "class");
 		}
 		beginDisabledFieldset(well, rw);
 		

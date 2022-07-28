@@ -61,7 +61,7 @@ public class Responsive {
                     if (colmd > 0) {
                         sb.append(" ");
                     }
-                    sb.append("col-md-offset-" + offsmd);
+                    sb.append("offset-md-" + offsmd);
                 }
             } else if (colmd == 0) {
                 if (forceColMd) {
@@ -71,7 +71,7 @@ public class Responsive {
             }
 
             if (colxs > 0) {
-                sb.append(" col-xs-").append(colxs);
+                sb.append(" col-").append(colxs);
             }
             if (colxs == 0) {
                 sb.append(" hidden-xs");
@@ -95,13 +95,13 @@ public class Responsive {
             sb.append(encodeVisibility(r, r.getHidden(), "hidden"));
 
             if (oxs > 0) {
-                sb.append(" col-xs-offset-").append(oxs);
+                sb.append(" offset-").append(oxs);
             }
             if (osm > 0) {
-                sb.append(" col-sm-offset-").append(osm);
+                sb.append(" offset-sm").append(osm);
             }
             if (olg > 0) {
-                sb.append(" col-lg-offset-").append(olg);
+                sb.append(" offset-lg").append(olg);
             }
 
             return " " + sb.toString().trim() + " ";
@@ -429,7 +429,7 @@ public class Responsive {
             }
 
             if (colxs > 0) {
-                sb.append("col-xs-");
+                sb.append("col-");
                 sb.append(colxs);
                 sb.append(' ');
             }

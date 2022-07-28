@@ -52,6 +52,7 @@ public class Messages extends UIMessagesBase implements IResponsive {
 		//!bs-less//AddResourcesListener.addThemedCSSResource("alerts.css");
 		//AddResourcesListener.addThemedCSSResource("bsf.css");
 		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/alert.js");
+		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/util.js");
 		setRendererType("net.bootsfaces.component.messages.MessagesRenderer");
 	}
 

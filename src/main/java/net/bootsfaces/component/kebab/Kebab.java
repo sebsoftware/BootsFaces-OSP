@@ -36,7 +36,8 @@ import net.bootsfaces.render.IContentDisabled;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:kebab /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body")
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head")
 	})
 
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })

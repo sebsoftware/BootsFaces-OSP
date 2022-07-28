@@ -51,6 +51,7 @@ public class Message extends UIMessage implements IResponsive {
 		//!bs-less//AddResourcesListener.addThemedCSSResource("alerts.css");
 		//AddResourcesListener.addThemedCSSResource("bsf.css");
 		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/alert.js");
+		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/util.js");
 	}
 
 	public void setValueExpression(String name, ValueExpression binding) {

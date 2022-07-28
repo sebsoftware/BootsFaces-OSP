@@ -55,6 +55,7 @@ public class DropButton extends UIComponentBase implements IHasTooltip, IRespons
 		AddResourcesListener.addThemedCSSResource("core.css");
 		Tooltip.addResourceFiles();
 		AddResourcesListener.addResourceToHeadButAfterJQuery("bsf", "js/dropdown.js");
+		AddResourcesListener.addResourceToHeadButAfterJQuery("bsf", "js/util.js");
 		setRendererType(DEFAULT_RENDERER);
 	}
 

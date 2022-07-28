@@ -132,6 +132,7 @@ public class Tooltip {
 		// if (null != getAttributes().get("tooltip")) {
 		//!bs-less//AddResourcesListener.addThemedCSSResource("tooltip.css");
 		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/tooltip.js");
+		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/util.js");
 		// }
 	}
 

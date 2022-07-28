@@ -37,7 +37,8 @@ import net.bootsfaces.render.Tooltip;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:alert /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/alert.js", target = "body") })
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/alert.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head") })
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(Alert.COMPONENT_TYPE)
 public class Alert extends UIOutput implements IHasTooltip, IResponsive {

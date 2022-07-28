@@ -71,25 +71,26 @@ public class NavBarRenderer extends CoreRenderer {
 			ns += " ";
 		}
 
+		ns += "navbar-expand-lg ";
 		if (navBar.isInverse()) {
-			ns += "navbar navbar-inverse";
+			ns += "navbar navbar-dark bg-dark";
 		} else {
-			ns += "navbar navbar-default";
+			ns += "navbar navbar-light bg-light";
 		}
 
 		if (navBar.getPosition() != null) {
 			// new API
 			if (navBar.getPosition().equals("top")) {
 				if (navBar.isSticky()) {
-					ns += " navbar-fixed-top";
+					ns += " fixed-top";
 				} else {
 					ns += " navbar-static-top";
 				}
 			} else if (navBar.getPosition().equals("bottom")) {
 				if (navBar.isSticky()) {
-					ns += " navbar-fixed-bottom";
+					ns += " fixed-bottom";
 				} else {
-					ns += " navbar-fixed-bottom navbar-nonsticky";
+					ns += " fixed-bottom navbar-nonsticky";
 				}
 			} else {
 				// don't add any class
@@ -97,13 +98,13 @@ public class NavBarRenderer extends CoreRenderer {
 		} else {
 			if (fixed != null) {
 				if (fixed.equals("top")) {
-					ns += " navbar-fixed-top";
+					ns += " fixed-top";
 				}
 				if (fixed.equals("bottom")) {
-					ns += " navbar-fixed-bottom";
+					ns += " fixed-bottom";
 				}
 				if (fixed.equals("non-sticky")) {
-					ns += " navbar-fixed-bottom navbar-nonsticky";
+					ns += " fixed-bottom navbar-nonsticky";
 				}
 			}
 			if (navBar.isStatic()) {
@@ -138,7 +139,7 @@ public class NavBarRenderer extends CoreRenderer {
 			writeAttribute(rw, "tabindex", tabindex, null);
 		}
 		rw.writeAttribute("type", "button", "type");
-		rw.writeAttribute("class", "navbar-toggle", "class");
+		rw.writeAttribute("class", "navbar-toggler", "class");
 		rw.writeAttribute("data-toggle", "collapse", "type");
 		rw.writeAttribute("data-target", "#" + escapeClientId(clientId) + "_inner", "data-target");
 

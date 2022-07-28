@@ -194,19 +194,19 @@ public class PanelGridRenderer extends CoreRenderer {
 		} else {
 			size = Responsive.translateSize(size, true);
 		}
-		
+		size = "xs".equals(size) ? "" : size + "-";
 
 		String[] result = new String[colSpans.length];
 
 		for (int i = 0; i < colSpans.length; i++) {
 			if (columnClasses == null) {
-				result[i] = "col-" + size + "-" + colSpans[i];
+				result[i] = "col-" + size + colSpans[i];
 			} else {
 				String current = columnClasses[i % columnClasses.length];
 				if (current.contains("col-")) {
 					result[i] = current;
 				} else {
-					result[i] = "col-" + size + "-" + colSpans[i] + " " + current;
+					result[i] = "col-" + size + colSpans[i] + " " + current;
 				}
 
 			}

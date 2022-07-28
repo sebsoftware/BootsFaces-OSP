@@ -41,7 +41,7 @@ public final class R {
 	// span => col-md-* as of TBS3
 	public static final String COLMD = "col-md-"; // Default as of TBS3
 	// span => col-md-offset-* as of TBS3
-	public static final String OFFSET = "col-md-offset-"; // Default as of TBS3
+	public static final String OFFSET = "offset-md-"; // Default as of TBS3
 	// public static final String ="";
 
 	/**

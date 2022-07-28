@@ -63,6 +63,7 @@ public class TabView extends UIOutput implements net.bootsfaces.render.IHasToolt
 		//AddResourcesListener.addThemedCSSResource("bsf.css");
 		AddResourcesListener.addThemedCSSResource("core.css");
 		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/tab.js");
+		AddResourcesListener.addResourceToHeadButAfterJQuery(C.BSF_LIBRARY, "js/util.js");
 		setRendererType(DEFAULT_RENDERER);
 	}
 

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-//Compile BootsFaces Less files to CSS and Minify
+//Compile BootsFaces Scss files to CSS and Minify
 
 buildscript {
     repositories {
@@ -27,8 +27,9 @@ buildscript {
       classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:3.1.0'
       //classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:3.0.10'
       //classpath 'com.bertramlabs.plugins:less-asset-pipeline:2.15.1'
-      classpath 'com.bertramlabs.plugins:less-asset-pipeline:3.1.0'
-      //classpath 'com.bertramlabs.plugins:less-asset-pipeline:3.0.10'
+      //classpath 'com.bertramlabs.plugins:less-asset-pipeline:3.1.0'
+      //classpath 'com.bertramlabs.plugins:less-asset-pipeline:3.0.10'    
+     classpath 'com.bertramlabs.plugins:sass-asset-pipeline:3.1.0'              
     }
 }
 apply plugin: 'com.bertramlabs.asset-pipeline'
@@ -38,10 +39,10 @@ apply plugin: 'com.bertramlabs.asset-pipeline'
   id "com.bertramlabs.asset-pipeline" version "3.0.10"
 }*/
 
-println 'compileLess:Themes('+themes.size+'):'+themes
+println 'compileSass:Themes('+themes.size+'):'+themes
 
 assets {
-  minifyJs = true
+  minifyJs = false
   minifyCss = true
   enableSourceMaps = false
   //developmentRuntime can be turned off
@@ -53,15 +54,15 @@ assets {
   maxThreads = 2 //If you encounter JVM Heap exhausted or Out of Memory errors set this to 1
   configOptions = [:]
 
-  includes = ['default/bs-*.less']
-  themes.each() { name -> includes.add(name+'/bs-*.less') }
+  includes = ['default/bs-*.scss']
+  themes.each() { name -> includes.add(name+'/bs-*.scss') }
   // TEMPORARILY DISABLE Patternfly Theme inclusion
-  //includes.add('patternfly/bs-*.less')
+  //includes.add('patternfly/bs-*.scss')
 
-  excludes = ['**/*.less','**/mixins/*.less'] //Exclude mixins
+  excludes = ['**/*.scss','**/mixins/*.scss'] //Exclude mixins
 
   // Can add custom asset locations (directories or individual jar files)
-  from "${buildDir}/process/less"
+  from "${buildDir}/process/scss"
   from "${buildDir}/process/bootstrap"
   from "${buildDir}/process/bsf"
 }
@@ -76,14 +77,14 @@ themes.each {
     //create a dynamic task for each theme (in the config phase)
     def themeName ->
     tasks.create(name: "copyDefaultTheme2$themeName", type: Copy) {
-        println "compileLess:Configure Task copyDefaultTheme2$themeName"
+        println "compileSass:Configure Task copyDefaultTheme2$themeName"
 
-        from BootstrapFolder+'/less' //Bootstrap less
-        from staticResourcesDir+'/less/bf' //BootsFaces less
-        include '**/*.less'
-        exclude 'extra-theme.less'
+        from BootstrapFolder+'/scss' //Bootstrap scss
+        from staticResourcesDir+'/scss/bf' //BootsFaces scss
+        include '**/*.scss'
+        exclude 'extra-theme.scss'
 
-        into "${buildDir}/process/less/"+themeName
+        into "${buildDir}/process/scss/"+themeName
     }
 }
 
@@ -91,82 +92,83 @@ themes.each {
     //create a dynamic task for each theme (in the config phase)
     def themeName ->
     tasks.create(name: "copyBootswatchTheme2$themeName", type: Copy) {
-        println "compileLess:Configure Task copyBootswatchTheme2$themeName from "+BootswatchFolder+'/'+themeName
+        println "compileSass:Configure Task copyBootswatchTheme2$themeName from "+BootswatchFolder+'/'+themeName
 
-        from BootswatchFolder+'/'+themeName //Bootswatch Theme less
-        into "${buildDir}/process/less/"+themeName
+        from BootswatchFolder+'/'+themeName //Bootswatch Theme Sass
+        into "${buildDir}/process/scss/"+themeName
 
-        rename 'bootswatch.less', 'extra-theme.less'
+        rename '_bootswatch.scss', 'extra-theme.scss'
+        rename '_variables.scss', 'extra-variables.scss'
     }
 }
 
-task copyBootswatchLess4Themes (dependsOn: ['cloneDefaultLess4Themes',tasks.matching { Task task -> task.name.startsWith("copyBootswatchTheme2")},'copyBootswatchLessCustomizations']) {
-    description 'BootsFaces task: copies the Bootswatch less files to the process folder for all the included Themes.'
-    println "Task copyBootswatchLess4Themes"
+task copyBootswatchSass4Themes (dependsOn: ['cloneDefaultSass4Themes',tasks.matching { Task task -> task.name.startsWith("copyBootswatchTheme2")},'copyBootswatchSassCustomizations']) {
+    description 'BootsFaces task: copies the Bootswatch scss files to the process folder for all the included Themes.'
+    println "Task copyBootswatchSass4Themes"
 }
 
 
-task cloneDefaultLess4Themes (dependsOn: [tasks.matching { Task task -> task.name.startsWith("copyDefaultTheme2")}]) {
-    description 'BootsFaces task: copies the Bootstrap less files to the process folder for all the included Themes.'
-    println "Task cloneDefaultLess4Themes"
+task cloneDefaultSass4Themes (dependsOn: [tasks.matching { Task task -> task.name.startsWith("copyDefaultTheme2")}]) {
+    description 'BootsFaces task: copies the Bootstrap scss files to the process folder for all the included Themes.'
+    println "Task cloneDefaultSass4Themes"
 }
-copyBootswatchLess4Themes.mustRunAfter cloneDefaultLess4Themes
+copyBootswatchSass4Themes.mustRunAfter cloneDefaultSass4Themes
 
 //Copy the per-Theme Customizations
-task copyBootswatchLessCustomizations(type: Copy) {
+task copyBootswatchSassCustomizations(type: Copy) {
   	description 'BootsFaces task: copies the theme Customizations files to the process folder.'
-  	from staticResourcesDir+'/less/bw'
-  	into "${buildDir}/process/less"
+  	from staticResourcesDir+'/scss/bw'
+  	into "${buildDir}/process/scss"
 }
 
 /*
  * Tasks to copy files to the process directory
  */
-//Copy the less files for Bootstrap(default) Theme
-task copyOriginalLess(type: Copy) {
+//Copy the scss files for Bootstrap(default) Theme
+task copyOriginalSass(type: Copy) {
+  	description 'BootsFaces task: copies the Bootstrap scss folders to the process folder.'
+  	from BootstrapFolder+'/scss'
+  	into "${buildDir}/process/scss/default"
+}
+//Copy the scss files for Bootstrap(default) Theme
+task copyBootsFacesSass(type: Copy) {
+  	description 'BootsFaces task: copies the BootsFaces bs-*.scss files to the process folder.'
+  	from staticResourcesDir+'/scss/bf'
+  	into "${buildDir}/process/scss/default"
+
+    exclude 'bs-patternfly.scss'
+}
+
+//Copy the Bootstrap scss files for PatternFly Theme
+task copyOriginalSass4PatternFly(type: Copy) {
   	description 'BootsFaces task: copies the Bootstrap less folders to the process folder.'
-  	from BootstrapFolder+'/less'
-  	into "${buildDir}/process/less/default"
-}
-//Copy the less files for Bootstrap(default) Theme
-task copyBootsFacesLess(type: Copy) {
-  	description 'BootsFaces task: copies the BootsFaces bs-*.less files to the process folder.'
-  	from staticResourcesDir+'/less/bf'
-  	into "${buildDir}/process/less/default"
-
-    exclude 'bs-patternfly.less'
+  	from BootstrapFolder+'/scss'
+  	into "${buildDir}/process/scss/patternfly/lib/bootstrap"
 }
 
-//Copy the Bootstrap less files for PatternFly Theme
-task copyOriginalLess4PatternFly(type: Copy) {
-  	description 'BootsFaces task: copies the Bootstrap less folders to the process folder.'
-  	from BootstrapFolder+'/less'
-  	into "${buildDir}/process/less/patternfly/lib/bootstrap"
+//Copy the scss files for PatternFly Theme
+task copyBootsFacesSass4PatternFly(type: Copy) {
+  	description 'BootsFaces task: copies the BootsFaces bs-*.scss files to the process folder.'
+  	from staticResourcesDir+'/scss/pf'
+  	into "${buildDir}/process/scss/patternfly"
+    exclude 'extra-theme.scss', 'bootstrap-switch.scss'
+    rename 'bs-patternfly.scss', 'extra-theme.scss'
 }
 
-//Copy the less files for PatternFly Theme
-task copyBootsFacesLess4PatternFly(type: Copy) {
-  	description 'BootsFaces task: copies the BootsFaces bs-*.less files to the process folder.'
-  	from staticResourcesDir+'/less/pf'
-  	into "${buildDir}/process/less/patternfly"
-    exclude 'extra-theme.less', 'bootstrap-switch.less'
-    rename 'bs-patternfly.less', 'extra-theme.less'
+//Copy the scss files for PatternFly Theme
+task copyPatternFlySassFiles(type: Copy) {
+  	description 'BootsFaces task: copies the Bootstrap and PatternFly scss folders to the process folder.'
+  	from PatternFlyFolder+'/src/scss'
+  	into "${buildDir}/process/scss/patternfly"
 }
-
-//Copy the less files for PatternFly Theme
-task copyPatternFlyLessFiles(type: Copy) {
-  	description 'BootsFaces task: copies the Bootstrap and PatternFly less folders to the process folder.'
-  	from PatternFlyFolder+'/src/less'
-  	into "${buildDir}/process/less/patternfly"
+task copyPatternFlySass(dependsOn: ['copyPatternFlySassFiles','copyOriginalSass4PatternFly','copyBootsFacesSass4PatternFly']) {
 }
-task copyPatternFlyLess(dependsOn: ['copyPatternFlyLessFiles','copyOriginalLess4PatternFly','copyBootsFacesLess4PatternFly']) {
-}
-copyOriginalLess4PatternFly.mustRunAfter copyPatternFlyLessFiles
+copyOriginalSass4PatternFly.mustRunAfter copyPatternFlySassFiles
 
 //Common for all themes
 task copyBootstrapJs(type: Copy) {
   	description 'BootsFaces task: copies the Bootstrap JavaScript files to the process folder.'
-  	from BootstrapFolder+'/js'
+  	from BootstrapFolder+'/js/dist'
   	include '*.js'
   	exclude 'affix.js', 'popover.js'
         //, 'scrollspy.js'
@@ -183,7 +185,7 @@ task copyBootsFacesFiles(type: Copy) {
   	into "${buildDir}/process/bsf"
 }
 
-task copyFiles2Process(dependsOn: ['copyOriginalLess', 'copyBootsFacesLess', 'copyBootsFacesFiles', 'copyBootstrapJs','copyBootswatchLess4Themes', 'copyPatternFlyLess']) {
+task copyFiles2Process(dependsOn: ['copyOriginalSass', 'copyBootsFacesSass', 'copyBootsFacesFiles', 'copyBootstrapJs','copyBootswatchSass4Themes', 'copyPatternFlySass']) {
 
 }
 /* END Tasks to copy files to the process directory */
@@ -196,13 +198,13 @@ themes.each {
     //create a dynamic task for each theme
     def themeName ->
     tasks.create(name: "cleanAssetThemesDir$themeName", type: Delete) {
-        println 'compileLess:Configure Task clean Themes Asset: '+themeName
+        println 'compileSass:Configure Task clean Themes Asset: '+themeName
         delete fileTree(dir: "${buildDir}/assets/"+themeName, includes: ['*.gz', 'bs-*-*.css', 'bsf-*.css', '*-*.js'],
                                                               excludes: ['bs-progress-bars.css', 'bs-list-group.css'])
     }
 }
 task cleanAssetThemeDirs(dependsOn: tasks.matching { Task task -> task.name.startsWith("cleanAssetThemesDir")}) {
-    println "compileLess: Cleaning Themes Asset"
+    println "compileSass: Cleaning Themes Asset"
 }
 
 task cleanAssetDir(type: Delete) {
@@ -237,7 +239,7 @@ assetCompile.doLast {
 
 //task compileAndMinify(dependsOn: ['copyFiles2Process', 'assetCompile', 'cleanAssetDir', 'cleanAssetThemeDirs']) {
 task compileAndMinify(dependsOn: ['copyFiles2Process', 'assetCompile']) {
-  println "compileLess: Compile and Minify"
+  println "compileSass: Compile and Minify"
 }
 assetCompile.mustRunAfter copyFiles2Process
 cleanAssetDir.mustRunAfter assetCompile

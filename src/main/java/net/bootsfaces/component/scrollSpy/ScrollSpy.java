@@ -36,7 +36,8 @@ import net.bootsfaces.component.scrollSpy.event.ScrollSpyEventListener;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:scrollSpy /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/scrollspy.js", target = "body"), })
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/scrollspy.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head"), })
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(ScrollSpy.COMPONENT_TYPE)
 public class ScrollSpy extends UIComponentBase {

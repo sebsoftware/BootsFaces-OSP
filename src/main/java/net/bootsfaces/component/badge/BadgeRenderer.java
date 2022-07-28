@@ -86,9 +86,9 @@ public class BadgeRenderer extends CoreInputRenderer {
 			rw.writeAttribute("id", clientId, "id");
 		}
 		if (styleClass == null)
-			styleClass = "badge";
+			styleClass = "badge badge-pill badge-secondary";
 		else
-			styleClass += " badge";
+			styleClass += " badge badge-pill badge-secondary";
 		Tooltip.generateTooltip(context, component, rw);
 		rw.writeAttribute("class", styleClass, "class");
 		if (isResponsive) {

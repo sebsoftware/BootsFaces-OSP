@@ -395,7 +395,7 @@ public class ButtonRenderer extends CoreRenderer {
 		if (sclass != null) {
 			sb.append(" ").append(sclass);
 		}
-
+		sb.append(" text-nowrap");
 
 		return sb.toString().trim();
 	}

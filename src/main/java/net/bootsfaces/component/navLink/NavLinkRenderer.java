@@ -190,7 +190,7 @@ public class NavLinkRenderer extends CoreRenderer {
 			if (((AbstractNavLink) navlink).getStyle() != null) {
 				style += ((AbstractNavLink) navlink).getStyle();
 			}
-			writeAttribute(rw, "class", getStyleClasses(((AbstractNavLink) navlink)));
+			writeAttribute(rw, "class", getStyleClasses(((AbstractNavLink) navlink)) + " nav-item");
 			writeAttribute(rw, "style", style);
 		}
 
@@ -223,6 +223,12 @@ public class NavLinkRenderer extends CoreRenderer {
 		if (((AbstractNavLink) navlink).isDisabled()) {
 			styleClass += " disabled";
 		}
+		boolean active = ((AbstractNavLink) navlink).isActive();
+		if (active) {
+			styleClass += " active";
+		}
+
+		styleClass += " nav-link";
 		writeAttribute(rw, "class", styleClass, "class");
 		boolean hasActionExpression = false;
 		if (!((AbstractNavLink) navlink).isDisabled()) {
@@ -327,10 +333,6 @@ public class NavLinkRenderer extends CoreRenderer {
 
 	private String getStyleClasses(AbstractNavLink navlink) {
 		String c = "";
-		boolean active = navlink.isActive();
-		if (active) {
-			c += "active";
-		}
 
 		String styleClass = navlink.getStyleClass();
 		if (null != styleClass)

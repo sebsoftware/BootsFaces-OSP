@@ -28,7 +28,7 @@ ext.downloadBootstrapURL = 'https://github.com/twbs/bootstrap/archive/v'+Bootstr
 def bootstrapZip = new File(buildDir, 'bootstrap'+BootstrapVersion+'.zip')
 
 ext.downloadBootswatchURL = 'https://github.com/thomaspark/bootswatch/archive/v'+BootswatchFullVersion+'.zip'
-ext.bootswatchZipFolder = 'bootswatch-'+BootswatchFullVersion.replace('+','-')
+ext.bootswatchZipFolder = 'bootswatch-'+BootswatchFullVersion.replace('+','-')+'/dist'
 //ext.zipFile = zipFolder+'.zip'
 
 def bootswatchZip = new File(buildDir, 'bootswatch-'+BootswatchFullVersion.replace('+','-')+'.zip')
@@ -69,7 +69,6 @@ task downloadBootswatchZipFile(type: Download) {
 }
 downloadBootswatchZipFile.onlyIf { !bootswatchZip.exists() }
 
-
 themes.each {
     //create a dynamic task for each theme
     def targetName ->
@@ -77,13 +76,13 @@ themes.each {
         println "${project.name}: extracting bootswatch Theme themeTask$targetName"
         from zipTree(bootswatchZip)
         into "${buildDir}/extracted"
-        include bootswatchZipFolder+"/"+targetName+"/*.less"
+        include bootswatchZipFolder+"/dist/"+targetName+"/*.scss"
         doLast {
 
             //Patch for Font URL in Bootswatch v3.3.5+3 and later
-            def lessfile="${buildDir}/extracted/"+bootswatchZipFolder+"/"+targetName+"/bootswatch.less"
-            println 'INFO - patching:'+lessfile
-            def bswFile = new File( lessfile )
+            def scssfile="${buildDir}/extracted/"+bootswatchZipFolder+"/"+targetName+"/_bootswatch.scss"
+            println 'INFO - patching:'+scssfile
+            def bswFile = new File( scssfile )
             String contents = bswFile.getText( 'UTF-8' )
 
             def fonturlexp=/(\@[A-Za-z\-\_]*font[A-Za-z\-\_]*)\s*\:\s*\"(http[^"]+)\"\s*\;/

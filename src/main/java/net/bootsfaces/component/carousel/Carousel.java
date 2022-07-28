@@ -48,7 +48,8 @@ import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:carousel /&gt;. */
 @ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/carousel.js", target = "head"),
-		@ResourceDependency(library = "bsf", name = "js/transition.js", target = "head") })
+		@ResourceDependency(library = "bsf", name = "js/transition.js", target = "head"),
+		@ResourceDependency(library = "bsf", name = "js/util.js", target = "head") })
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(Carousel.COMPONENT_TYPE)
 public class Carousel extends UICommand implements net.bootsfaces.render.IHasTooltip, IAJAXComponent, IAJAXComponent2,

@@ -67,12 +67,13 @@ public class DropMenuRenderer extends CoreRenderer {
 		String clientId = dropMenu.getClientId();
 
 		boolean isFlyOutMenu = isFlyOutMenu(component);
+		boolean isNavbarMenu = isInsideNavbar(component);
 
 		String htmlTag = determineHtmlTag(component, isFlyOutMenu);
 
 		rw.startElement(htmlTag, dropMenu);
 		rw.writeAttribute("id", clientId, "id");
-		rw.writeAttribute("class", getStyleClass(dropMenu, isFlyOutMenu), "class");
+		rw.writeAttribute("class", getStyleClass(dropMenu, isFlyOutMenu, isNavbarMenu), "class");
 		if (dropMenu.getStyle() != null) {
 			rw.writeAttribute("style", dropMenu.getStyle(), "style");
 		}
@@ -150,6 +151,17 @@ public class DropMenuRenderer extends CoreRenderer {
 		}
 		return parent instanceof DropMenu;
 	}
+	
+	private static boolean isInsideNavbar(UIComponent component) {
+		UIComponent parent = component.getParent();
+		while (parent != null && !C.BSFCOMPONENT.equals(parent.getFamily())) {
+			parent = parent.getParent();
+		}
+		if (parent instanceof NavBarLinks) {
+			return true;
+		}
+		return false;
+	}
 
 	private String determineHtmlTag(UIComponent component, boolean isFlyOutMenu) {
 		String htmlTag = "span";
@@ -178,11 +190,13 @@ public class DropMenuRenderer extends CoreRenderer {
 		return false;
 	}
 
-	private String getStyleClass(DropMenu dropMenu, boolean isFlyOutMenu) {
+	private String getStyleClass(DropMenu dropMenu, boolean isFlyOutMenu, boolean isNavbarItem) {
 		String userClass = dropMenu.getStyleClass();
 		if (null == userClass)
 			userClass = "";
 		userClass += Responsive.getResponsiveStyleClass(dropMenu, false);
+		if (isNavbarItem)
+			userClass += "nav-item ";
 		String direction = dropMenu.getDrop();
 		if (direction == null) {
 			direction = "down";

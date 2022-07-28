@@ -39,7 +39,8 @@ import net.bootsfaces.render.Tooltip;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:dropMenu /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body") })
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/dropdown.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head") })
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(DropMenu.COMPONENT_TYPE)
 public class DropMenu extends DropMenuCore implements IHasTooltip, IResponsive, IContentDisabled {

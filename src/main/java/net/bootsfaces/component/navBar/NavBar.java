@@ -35,7 +35,8 @@ import net.bootsfaces.render.Tooltip;
 import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:navBar /&gt;. */
-@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/collapse.js", target = "body"), })
+@ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/collapse.js", target = "body"),
+	@ResourceDependency(library = "bsf", name = "js/util.js", target = "head"), })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 @FacesComponent(NavBar.COMPONENT_TYPE)
 public class NavBar extends UIComponentBase implements net.bootsfaces.render.IHasTooltip, IContentDisabled {

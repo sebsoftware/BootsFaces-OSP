@@ -589,7 +589,9 @@ public class TabViewRenderer extends CoreRenderer {
 				writer.writeText(" " + tab.getTitle(), null);
 			}
 		} else {
-			writer.writeText(tab.getTitle(), null);
+			if (null != tab.getTitle()) {
+				writer.writeText(tab.getTitle(), null);
+			}
 		}
 		writer.endElement("a");
 	}

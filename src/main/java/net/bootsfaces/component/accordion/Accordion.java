@@ -38,7 +38,8 @@ import net.bootsfaces.utils.BsfUtils;
 
 /** This class holds the attributes of &lt;b:accordion /&gt;. */
 @ResourceDependencies({ @ResourceDependency(library = "bsf", name = "js/transition.js", target = "body"),
-		@ResourceDependency(library = "bsf", name = "js/collapse.js", target = "body"), })
+		@ResourceDependency(library = "bsf", name = "js/collapse.js", target = "body"),
+		@ResourceDependency(library = "bsf", name = "js/util.js", target = "head"),})
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class) })
 @FacesComponent(Accordion.COMPONENT_TYPE)
 public class Accordion extends AccordionCore implements IHasTooltip, net.bootsfaces.render.IResponsive, IContentDisabled {

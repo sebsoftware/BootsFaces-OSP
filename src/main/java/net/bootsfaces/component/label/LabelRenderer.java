@@ -71,11 +71,11 @@ public class LabelRenderer extends CoreRenderer {
 			rw.writeAttribute("id", clientId, "id");
 		}
 		Tooltip.generateTooltip(context, label, rw);
-		String sclass = "label" + " " + "label";
+		String sclass = "badge" + " " + "badge";
 		if (sev != null) {
 			sclass += "-" + sev;
 		} else {
-			sclass += "-default";
+			sclass += "-secondary";
 		}
 		String styleClass = label.getStyleClass();
 		sclass += styleClass != null ? " " + styleClass : "";

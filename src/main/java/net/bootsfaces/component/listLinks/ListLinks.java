@@ -55,7 +55,7 @@ public class ListLinks extends LinksContainer {
 	 */
 	public static final String COMPONENT_FAMILY = C.BSFCOMPONENT;
 
-	private static final String STYLE = "nav nav-list";// S.NAV+S.SP+S.NAVLIST;
+	private static final String STYLE = "nav flex-column";// S.NAV+S.SP+S.NAVLIST;
 
 	public void setValueExpression(String name, ValueExpression binding) {
 		name = BsfUtils.snakeCaseToCamelCase(name);

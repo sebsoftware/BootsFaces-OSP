@@ -1,0 +1,56 @@
+// ----------------------------------------------------------------------------
+// This file is part of BootsFaces.
+// It"s based on bootstrap.scss, adding the custom code required by BootsFaces.
+// ----------------------------------------------------------------------------
+
+@import "functions";
+@import "variables";
+// Extra Variables (override)
+@import "extra-variables";
+
+@import "mixins";
+@import "mixins/extra-grid";
+
+// Load fonts from this directory.
+$icon-font-path: "../../../fonts/";
+
+@import "root";
+@import "reboot";
+@import "type";
+@import "images";
+@import "code";
+@import "grid";
+//@import "extra-grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "transitions";
+@import "dropdown";
+@import "button-group";
+@import "input-group";
+@import "custom-forms";
+@import "nav";
+@import "navbar";
+@import "card";
+@import "breadcrumb";
+@import "pagination";
+@import "badge";
+@import "jumbotron";
+@import "alert";
+@import "progress";
+@import "media";
+@import "list-group";
+@import "close";
+@import "modal";
+@import "tooltip";
+@import "popover";
+@import "carousel";
+@import "utilities";
+@import "print";
+
+// Utility classes
+@import "extra-responsive-utilities";
+
+@import "customizations";
+@import "theme-customizations";
+
