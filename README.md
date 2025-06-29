@@ -16,20 +16,43 @@ To learn more about the framework, take a look at  [BootsFaces.net](http://www.b
 
 The source for our page can be found on GitHub. If you want to have a deeper look on how to use the library or found a mistake, visit the [Showcase Project](https://github.com/TheCoder4eu/BootsFacesWeb) or the [Examples Project](https://github.com/TheCoder4eu/BootsFaces-examples).
 
+### Version 2.0.0
+Basically, Version 2.0.0 is a considerable number of bug fixes, plus support for JakartaEE. We've dropped support for the old `javax` namespace.
+
+The minimum required version of Java is Java 11.
+
+### State of the project
+At the moment, this project is not maintained actively. If you need a feature, please send us a pull request,
+so we can build a new version. It's a good idea to reach out to use beforehand, so we can check if (or make sure that) we've got enough time to review your PR and to publish a new version.
+
 ### Getting started
-To get up and running quickly, have a look at the [Quick Start](http://www.bootsfaces.net/quick-start.jsf).
+To get up and running quickly, have a look at the [Quick Start](https://www.bootsfaces.net/quick-start.jsf).
+
+Starting with version 2.0.0, BootsFaces requires JSF 4.0 and JakartaEE. It's no longer compatible to the old JavaEE libraries. Instead, it requires the Jakarta libraries..
 
 ### Maven
 
     <dependency>
         <groupId>net.bootsfaces</groupId>
         <artifactId>bootsfaces</artifactId>
-        <version>1.4.0</version>
+        <version>2.0.0</version>
     </dependency>
+
+You can also get a version that's compiled to Java 17:
+
+    <dependency>
+        <groupId>net.bootsfaces</groupId>
+        <artifactId>bootsfaces</artifactId>
+        <version>2.0.0</version>
+        <classifier>java17</classifier>
+    </dependency>
+
+Probably, there's no big difference between the Java 17 build and the Java 11 build. However, in the past,
+there is at least one Java version that ran newer builds faster than older builds. 
 
 ### Gradle
 
-    compile 'net.bootsfaces:bootsfaces:1.4.0'
+    compile 'net.bootsfaces:bootsfaces:2.0.0'
 
 ### Development Snapshots
 
@@ -40,18 +63,24 @@ There's also a [Snapshot Showcase](http://www3.bootsfaces.net/Showcase/) with th
 If you want to get your feet wet yourself, we suggest you to take a look at our [cheat-sheet](cheat-sheet.md) and the [contribution guidelines](CONTRIBUTING.md).
 
 ### Notes on the new Java Release Cycle
-As of March 20, 2018 a new six-month Java release scheme has been adopted and Java 10 is the currently supported rapid release version.
-There will be three years between a LTS release and the next and Java 11 will be the next LTS after Java 8(LTS).
-Java 10 support ends on the same date that support for Java 11 begins the day of its release, planned for September 25, 2018.
+As of March 20, 2018 a new six-month Java release scheme has been adopted.
+There will be three years between a LTS release and the next and Java 11 has been the next LTS after Java 8(LTS). Bootsfaces currently supports Java 11 LTS, Java 17 LTS,
+and Java 21 LTS. Older versions of Java are not supported.
 
-BootsFaces want to support each Java runtime released after the minimum Java version used to build the library.
-However, to prevent too many Java subdirectories in the project root, we created the legacyJava directory, that will collect the build scripts specific for non-LTS runtimes.
-This means that our official build will only include non obsolete LTS targets but you will have the option of building for not non-LTS Java targets using commands like follows:
+With Gradle, you can build the library using the following Targets:
 
 ```
-./gradlew :legacyJava:java7:defaultJar
-./gradlew :legacyJava:java9:defaultJar
-./gradlew :legacyJava:java10:defaultJar
+./gradlew :javaBuild:buildJava11Jar
+./gradlew :javaBuild:buildJava17Jar
 ```
 
+### Kudos
+Over the years, countless developers helped to make BootsFaces what it is today. We'd like to thank all of them for their contributions. 
 
+<table style="border-collapse: collapse; border:none">
+  <tr style="border:none">
+    <td style="border:none; width:70%">With respect to version 2.0, we'd like to thank particularly Alexander Hass and his team, who're working for the insurance company "Itzehoer Versicherungen" and who made publishing the new version possible. Without your help, the new version probably wouldn’t exist yet!
+    <td style="border:none; width:20%"><img src="https://www.itzehoer.de/images/mediathek/itzehoer-logo_farbig_png.png" alt="Logo of the company Itzehoer Versicherungen" style="margin-left: 20px;"></td>
+  </tr>
+</table>
+  

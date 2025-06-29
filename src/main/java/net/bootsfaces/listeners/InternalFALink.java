@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import net.bootsfaces.C;
 
@@ -60,7 +60,7 @@ public class InternalFALink extends UIComponentBase {
 	@Override
 	public void encodeBegin(FacesContext fc) throws IOException {
 		final String FA_VERSION = "4.7.0";
-		final String FONTAWESOME_CDN_URL = "//maxcdn.bootstrapcdn.com/font-awesome/" + FA_VERSION
+		final String FONTAWESOME_CDN_URL = "//cdnjs.cloudflare.com/ajax/libs/font-awesome/" + FA_VERSION
 				+ "/css/font-awesome.min.css";
 
 		ResponseWriter responseWriter = fc.getResponseWriter();

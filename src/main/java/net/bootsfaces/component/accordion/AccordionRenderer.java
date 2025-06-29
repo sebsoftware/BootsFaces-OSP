@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.FacesRenderer;
 
 import net.bootsfaces.component.panel.Panel;
 import net.bootsfaces.render.CoreRenderer;
@@ -104,8 +104,7 @@ public class AccordionRenderer extends CoreRenderer {
                                         String childPaneClientId = _childPane.getClientId();
                                         if (_childPane.getClientId().contains(":")) {
                                             String[] parts = _childPane.getClientId().split(":");
-                                            if (parts.length == 2)
-                                                childPaneClientId = parts[1];
+											childPaneClientId = parts[parts.length - 1];
                                         }
 					if (null != expandedIds && expandedIds.contains(childPaneClientId))
 						_childPane.setCollapsed(false);

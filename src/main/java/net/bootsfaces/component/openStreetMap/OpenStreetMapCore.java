@@ -18,7 +18,7 @@
 
 package net.bootsfaces.component.openStreetMap;
 
-import javax.faces.component.UIData;
+import jakarta.faces.component.UIData;
 
 /** This class holds the attributes of &lt;b:openStreetMap /&gt;. */
 public abstract class OpenStreetMapCore extends UIData {
@@ -297,7 +297,7 @@ public abstract class OpenStreetMapCore extends UIData {
 	}
 
 	/**
-	 * zoomGlobal <P>
+	 * Deactivates the zoom function of the map in favor of the general browser zoom
 	 * @return Returns the value of the attribute, or , false, if it hasn't been set by the JSF file.
 	 */
 	public boolean isZoomGlobal() {

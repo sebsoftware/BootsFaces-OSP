@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
 
 import net.bootsfaces.component.ajax.AJAXRenderer;
 import net.bootsfaces.component.form.Form;
@@ -200,7 +200,7 @@ public class Responsive {
 			size=size.replace("column", "");
 			size=size.trim();
 		}
-		return new Integer(size).intValue();
+		return Integer.parseInt(size);
 	}
 
 	/**

@@ -19,7 +19,6 @@ package net.bootsfaces.listeners;
 
 import static net.bootsfaces.C.P_BLOCK_UI;
 import static net.bootsfaces.C.P_GET_BOOTSTRAP_FROM_CDN;
-import static net.bootsfaces.C.P_GET_DATATABLE_FROM_CDN;
 import static net.bootsfaces.C.P_GET_FONTAWESOME_FROM_CDN;
 import static net.bootsfaces.C.P_GET_JQUERYUI_FROM_CDN;
 import static net.bootsfaces.C.P_GET_JQUERY_FROM_CDN;
@@ -38,18 +37,18 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.FacesException;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlBody;
-import javax.faces.component.html.HtmlHead;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.html.HtmlBody;
+import jakarta.faces.component.html.HtmlHead;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 
 import net.bootsfaces.C;
 import net.bootsfaces.beans.ELTools;
@@ -110,8 +109,8 @@ public class AddResourcesListener implements SystemEventListener {
 	 */
 	private static final String EXT_RESOURCE_KEY = "net.bootsfaces.listeners.AddResourcesListener.ExtResourceFiles";
 
-	private static final String SCRIPT_RENDERER = "javax.faces.resource.Script",
-			CSS_RENDERER = "javax.faces.resource.Stylesheet";
+	private static final String SCRIPT_RENDERER = "jakarta.faces.resource.Script",
+			CSS_RENDERER = "jakarta.faces.resource.Stylesheet";
 
 	static {
 		LOGGER.info("This application is running on BootsFaces " + C.BSFVERSION + "-" + C.BSFRELEASE_STATUS);
@@ -222,7 +221,7 @@ public class AddResourcesListener implements SystemEventListener {
 		// Otherwise
 		String viewportMeta = "<meta name=\"viewport\" content=\"" + content + "\"/>";
 		UIOutput viewport = new UIOutput();
-		viewport.setRendererType("javax.faces.Text");
+		viewport.setRendererType("jakarta.faces.Text");
 		viewport.getAttributes().put("escape", false);
 		viewport.setValue(viewportMeta);
 
@@ -449,7 +448,7 @@ public class AddResourcesListener implements SystemEventListener {
 		 * library. This can be an error prone approach so we add all of them (if not
 		 * different specified)
 		 */
-		createAndAddComponent(root, context, SCRIPT_RENDERER, "jsf.js", "javax.faces");
+		createAndAddComponent(root, context, SCRIPT_RENDERER, "faces.js", "jakarta.faces");
 		createAndAddComponent(root, context, SCRIPT_RENDERER, "js/bsf.js", C.BSF_LIBRARY, "last");
 
 		if (loadJQuery) {
@@ -982,43 +981,5 @@ public class AddResourcesListener implements SystemEventListener {
 
 	private boolean isFalseOrNo(String param) {
 		return param.equalsIgnoreCase("false") || param.equalsIgnoreCase("no");
-	}
-
-	/**
-	 * Add the default datatables.net resource if and only if the user doesn't bring
-	 * their own copy, and if they didn't disallow it in the web.xml by setting the
-	 * context paramter net.bootsfaces.get_datatable_from_cdn to true.
-	 *
-	 * @param defaultFilename The URL of the file to be loaded
-	 * @param type            either "js" or "css"
-	 */
-	public static void addDatatablesResourceIfNecessary(String defaultFilename, String type) {
-		boolean loadDatatables = shouldLibraryBeLoaded(P_GET_DATATABLE_FROM_CDN, true);
-		// Do we have to add datatables.min.{css|js}, or are the resources already
-		// there?
-		FacesContext context = FacesContext.getCurrentInstance();
-		UIViewRoot root = context.getViewRoot();
-
-		String[] positions = { "head", "body", "form" };
-		for (String position : positions) {
-			if (loadDatatables) {
-				List<UIComponent> availableResources = root.getComponentResources(context, position);
-				for (UIComponent ava : availableResources) {
-					if (ava.isRendered()) {
-						String name = (String) ava.getAttributes().get("name");
-						if (null != name) {
-							name = name.toLowerCase();
-							if (name.contains("datatables") && name.endsWith("." + type)) {
-								loadDatatables = false;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		if (loadDatatables) {
-			addResourceIfNecessary(defaultFilename);
-		}
 	}
 }
